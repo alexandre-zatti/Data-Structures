@@ -77,13 +77,44 @@ class DoublyLinkedList {
         node.prev = null; // Clear the removed node's pointers
         node.next = null;
     }
+
+    popFront() {
+        if (!this.head) return null; // List is empty
+
+        const removedNode = this.head;
+        if (this.head === this.tail) {
+            // There's only one node in the list
+            this.head = null;
+            this.tail = null;
+        } else {
+            // There are more than one nodes in the list
+            this.head = this.head.next; // Move the head pointer to the next node
+            this.head.prev = null; // Set the new head's prev to null
+        }
+
+        this.length--; // Decrease the list length
+        removedNode.next = null; // Clear the removed node's pointers
+        return removedNode.value; // Return the removed node's value
+    }
+
+    popBack() {
+        if (!this.tail) return null; // List is empty
+
+        const removedNode = this.tail;
+        if (this.head === this.tail) {
+            // There's only one node in the list
+            this.head = null;
+            this.tail = null;
+        } else {
+            // There are more than one nodes in the list
+            this.tail = this.tail.prev; // Move the tail pointer to the previous node
+            this.tail.next = null; // Set the new tail's next to null
+        }
+
+        this.length--; // Decrease the list length
+        removedNode.prev = null; // Clear the removed node's pointers
+        return removedNode.value; // Return the removed node's value
+    }
 }
 
-const dll = new DoublyLinkedList()
-const node1 = dll.addToFront(1)
-const node2 = dll.addToFront(2)
-const node3 = dll.addToFront(3)
 
-dll.removeNode(node2)
-
-console.log(dll)
